@@ -1,6 +1,8 @@
 package com.ps.photogallery.service
 
-data class Media(val m: String)
+import com.google.gson.annotations.SerializedName
+
+data class Media(@SerializedName("m") val image_url: String)
 data class Items(
     val title: String?,
     val media: Media?,
