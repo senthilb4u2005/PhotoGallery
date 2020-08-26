@@ -14,14 +14,14 @@ fun showAlertDialog(
             setCancelable(false)
             setMessage(message)
             setTitle(R.string.error)
-            setPositiveButton(R.string.retry,
-                android.content.DialogInterface.OnClickListener { dialog, id ->
-                    onRetry()
-                })
-            setNegativeButton(R.string.exit,
-                android.content.DialogInterface.OnClickListener { dialog, id ->
-                    onExit()
-                })
+            setPositiveButton(R.string.retry
+            ) { _, _ ->
+                onRetry()
+            }
+            setNegativeButton(R.string.exit
+            ) { _, _ ->
+                onExit()
+            }
 
             create()
         }.show()

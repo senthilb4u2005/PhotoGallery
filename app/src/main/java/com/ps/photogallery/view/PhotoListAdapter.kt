@@ -10,7 +10,7 @@ import com.ps.photogallery.loadImage
 import com.ps.photogallery.service.Items
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class PhotoListAdapter() : RecyclerView.Adapter<PhotoListAdapter.ViewHolder>() {
+class PhotoListAdapter : RecyclerView.Adapter<PhotoListAdapter.ViewHolder>() {
 
     var items: MutableList<Items> = mutableListOf()
         set(value) {
@@ -33,12 +33,14 @@ class PhotoListAdapter() : RecyclerView.Adapter<PhotoListAdapter.ViewHolder>() {
         fun bind(item: Items) {
             item.media?.image_url?.let { itemView.imageViewPhoto.loadImage(it) }
             // TODO Remove hardcoded string replace with String res
-            itemView.photoDateTaken.text = "Date Captured:${item.date_taken}"
-            itemView.photoDatePublished.text = "Date Published:${item.published}"
+            itemView.photoDateTaken.text = "Date Captured: ${item.dateCaptured}"
+            itemView.photoDatePublished.text = "Date Published: ${item.datePublished}"
             itemView.photoAuthor.text = "Author: ${item.author}"
 
         }
 
     }
+
+
 }
 

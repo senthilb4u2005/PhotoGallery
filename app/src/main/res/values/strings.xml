@@ -3,4 +3,6 @@
     <string name="retry">Retry</string>
     <string name="exit">Exit</string>
     <string name="error">Sorry, something went wrong</string>
+    <string name="action_sort_by_name">Captured</string>
+    <string name="sort_by_last_edit">Published</string>
 </resources>

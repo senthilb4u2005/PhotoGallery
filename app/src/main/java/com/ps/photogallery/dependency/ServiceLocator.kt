@@ -1,5 +1,6 @@
 package com.ps.photogallery.dependency
 
+import com.google.gson.GsonBuilder
 import com.ps.photogallery.service.PhotoGalleryApi
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -12,7 +13,7 @@ object ServiceLocator {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()))
             .build().create(PhotoGalleryApi::class.java)
     }
 }

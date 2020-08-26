@@ -2,6 +2,9 @@ package com.ps.photogallery.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +21,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var viewModel: MainViewModel
     private val photoListAdapter: PhotoListAdapter = PhotoListAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView.apply {
@@ -26,6 +34,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
 
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -64,6 +73,27 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
         viewModel.fetchPublicPhotoList()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        item.isChecked = true
+        when (item.itemId) {
+
+            R.id.menu_sort_by_captured -> {
+                viewModel.sortItemByDateCreate()
+            }
+            R.id.menu_sort_by_published -> {
+
+                viewModel.sortItemByDatePublished()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

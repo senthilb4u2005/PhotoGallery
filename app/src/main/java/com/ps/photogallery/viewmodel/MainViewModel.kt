@@ -33,6 +33,7 @@ class MainViewModel : ViewModel() {
                 .doOnSubscribe { mutableProgressLiveData.postValue(true) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .map { response -> response.copy(items = response.items?.sortedBy { item -> item.dateCaptured }) }
                 .doOnComplete { mutableProgressLiveData.postValue(false) }
                 .subscribe(
                     this::handleSuccess,
@@ -47,7 +48,6 @@ class MainViewModel : ViewModel() {
         } else {
             mutableExceptionLiveData.postValue(ExceptionMessage.EmptyList)
         }
-
     }
 
     private fun handleException(exception: Throwable) {
@@ -62,6 +62,18 @@ class MainViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
+    }
+
+    fun sortItemByDateCreate() {
+        mutablePhotoList.value?.let {
+            mutablePhotoList.postValue(it.sortedBy { item -> item.dateCaptured })
+        }
+    }
+
+    fun sortItemByDatePublished() {
+        mutablePhotoList.value?.let {
+            mutablePhotoList.postValue(it.sortedBy { item -> item.datePublished })
+        }
     }
 
     companion object {
