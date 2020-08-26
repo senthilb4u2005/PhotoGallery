@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.Date
 
 data class Media(@SerializedName("m") val image_url: String)
-data class Items(
+data class PhotoItem(
     val title: String?,
     val media: Media?,
     @SerializedName("date_taken")
@@ -20,6 +20,6 @@ data class PhotoGalleryResponse(
     val title: String?,
     val description: String,
     val modified: String?,
-    val items: List<Items>?
+    val items: List<PhotoItem>?
 )
 

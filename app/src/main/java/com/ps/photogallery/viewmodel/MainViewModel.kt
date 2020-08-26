@@ -1,10 +1,11 @@
 package com.ps.photogallery.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ps.photogallery.dependency.ServiceLocator
-import com.ps.photogallery.service.Items
+import com.ps.photogallery.service.PhotoItem
 import com.ps.photogallery.service.PhotoGalleryResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -12,11 +13,12 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel : ViewModel() {
 
+    var photoGalleryService = ServiceLocator.photoGalleryService
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val mutablePhotoList = MutableLiveData<List<Items>>()
-    val photoListLiveData: LiveData<List<Items>>
+    private val mutablePhotoList = MutableLiveData<List<PhotoItem>>()
+    val photoListLiveData: LiveData<List<PhotoItem>>
         get() = mutablePhotoList
 
     private val mutableProgressLiveData = MutableLiveData<Boolean>()
@@ -29,7 +31,7 @@ class MainViewModel : ViewModel() {
 
     fun fetchPublicPhotoList() {
         compositeDisposable.add(
-            ServiceLocator.photoGalleryService.getPhotosPublic()
+            photoGalleryService.getPhotosPublic()
                 .doOnSubscribe { mutableProgressLiveData.postValue(true) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

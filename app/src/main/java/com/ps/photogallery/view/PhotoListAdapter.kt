@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ps.photogallery.R
 import com.ps.photogallery.inflate
 import com.ps.photogallery.loadImage
-import com.ps.photogallery.service.Items
+import com.ps.photogallery.service.PhotoItem
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class PhotoListAdapter : RecyclerView.Adapter<PhotoListAdapter.ViewHolder>() {
 
-    var items: MutableList<Items> = mutableListOf()
+    var items: MutableList<PhotoItem> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -30,7 +30,7 @@ class PhotoListAdapter : RecyclerView.Adapter<PhotoListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
-        fun bind(item: Items) {
+        fun bind(item: PhotoItem) {
             item.media?.image_url?.let { itemView.imageViewPhoto.loadImage(it) }
             // TODO Remove hardcoded string replace with String res
             itemView.photoDateTaken.text = "Date Captured: ${item.dateCaptured}"
